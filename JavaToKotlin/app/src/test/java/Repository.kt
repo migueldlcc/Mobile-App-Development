@@ -1,5 +1,4 @@
-import User.lastName
-import User.firstName
+
 import java.util.ArrayList
 
 val User.formattedName: String

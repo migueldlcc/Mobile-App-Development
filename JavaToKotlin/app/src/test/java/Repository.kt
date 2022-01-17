@@ -22,17 +22,6 @@ object Repository {
     val formattedUserNames: List<String>
         get() = _users.map { user -> user.formattedName }
 
-    init {
-        val user1 = User("Jane", "")
-        val user2 = User("John", null)
-        val user3 = User("Anne", "Doe")
 
-        _users.apply {
-            //this == _users
-            add(user1)
-            add(user2)
-            add(user3)
-        }
-    }
 }
 

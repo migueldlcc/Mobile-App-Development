@@ -18,6 +18,7 @@ package com.google.example.javafriendlykotlin
 
 import java.io.File
 import java.io.FileNotFoundException
+import java.io.IOException
 
 object Repository {
     const val BACKUP_PATH = "/backup/user.repo"

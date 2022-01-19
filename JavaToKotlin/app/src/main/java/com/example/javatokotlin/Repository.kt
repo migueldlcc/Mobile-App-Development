@@ -1,6 +1,3 @@
-
-import java.util.ArrayList
-
 val User.formattedName: String
     get() {
         return if (lastName != null) {
@@ -15,13 +12,11 @@ val User.formattedName: String
     }
 
 object Repository {
+
     private val _users = mutableListOf(User("Jane", ""), User("John", null), User("Anne", "Doe"))
     val users: List<User>
         get() = _users
 
     val formattedUserNames: List<String>
         get() = _users.map { user -> user.formattedName }
-
-
 }
-

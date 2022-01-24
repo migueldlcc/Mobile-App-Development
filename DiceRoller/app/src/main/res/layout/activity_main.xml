@@ -7,15 +7,8 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_gravity="center_vertical"
-    tools:context=".MainActivity" >
-
-    <TextView
-        android:id="@+id/result_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:textSize="30sp"
-        android:text="Hello World!" />
+    tools:context=".MainActivity"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <Button
         android:id="@+id/roll_button"
@@ -25,18 +18,18 @@
         android:text="@string/roll_label" />
 
     <Button
-        android:id="@+id/countup_button"
+        android:id="@+id/clear_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="@string/count_up" />
+        android:text="@string/clear_label" />
 
-    <Button
-        android:id="@+id/reset_button"
-        android:onClick="reset"
+    <ImageView
+        android:id="@+id/dice_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="@string/reset" />
+        app:srcCompat="@drawable/empty_dice"
+        tools:src="@drawable/dice_1"/>
 
 </LinearLayout>

@@ -12,6 +12,13 @@ class MainActivity : AppCompatActivity() {
 
         val rollButton: Button = findViewById(R.id.roll_button)
         rollButton.setOnClickListener { rollDice() }
+        val countButton: Button = findViewById(R.id.countup_button)
+        countButton.setOnClickListener { countUp() }
+        val resetButton: Button = findViewById(R.id.reset_button)
+
+        resetButton.setOnClickListener {
+            resetButton.text = "0"
+        }
     }
 
     private fun rollDice() {
@@ -34,4 +41,5 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
 }

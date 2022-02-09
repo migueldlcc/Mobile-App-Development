@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">TwoActivitiesIntentExtras2</string>
+    <string name="activity_second">Activity Second</string>
+    <string name="article_title">Pupular Songs</string>
+    <string name="welcome">Welcome to MiguelApp. This app consists on three buttons that will display three different songs when they are pressed</string>
+</resources>

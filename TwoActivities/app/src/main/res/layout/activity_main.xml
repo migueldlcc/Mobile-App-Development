@@ -36,8 +36,8 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="16dp"
-        android:onClick="launchSecondActivity"
         android:text="@string/button_main"
+        android:onClick="openSecondActivity"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 

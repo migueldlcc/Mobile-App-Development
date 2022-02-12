@@ -29,9 +29,9 @@ class MainActivity : AppCompatActivity() {
 
             // Boxes using custom colors for background
 
-            R.id.red_button -> view.setBackgroundResource(R.color.my_red)
-            R.id.yellow_button -> view.setBackgroundResource(R.color.my_yellow)
-            R.id.green_button -> view.setBackgroundResource(R.color.my_green)
+            R.id.red_button -> findViewById<View>(R.id.box_three_text).setBackgroundResource(R.color.my_red)
+            R.id.yellow_button -> findViewById<View>(R.id.box_four_text).setBackgroundResource(R.color.my_yellow)
+            R.id.green_button -> findViewById<View>(R.id.box_five_text).setBackgroundResource(R.color.my_green)
 
             else -> view.setBackgroundColor(Color.LTGRAY)
         }

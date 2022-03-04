@@ -18,6 +18,7 @@
         android:background="@color/colorPrimary"
         android:text="@string/button_label_toast"
         android:textColor="@android:color/white"
+        android:onClick="launchHelloActivity"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"

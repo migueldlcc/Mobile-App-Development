@@ -18,13 +18,7 @@ class GameViewModel(sliderSeconds: Int) : ViewModel() {
         //Total time for the game
         private const val COUNTDOWN_TIME = 60000L
     }
-    private val _seconds = MutableLiveData<Int>()
-    val seconds: LiveData<Int>
-        get() = _seconds
-    init {
-        Log.i("ScoreViewModel", "Final score is $sliderSeconds")
-        _seconds.value = sliderSeconds
-    }
+
 
     // Countdown time
     private val _currentTime = MutableLiveData<Long>()
@@ -85,7 +79,7 @@ class GameViewModel(sliderSeconds: Int) : ViewModel() {
     }
 
     init {
-        timer = object : CountDownTimer(COUNTDOWN_TIME, ONE_SECOND) {
+        timer = object : CountDownTimer(sliderSeconds * 1000L, ONE_SECOND) {
             override fun onTick(millisUntilFinished: Long) {
                 _currentTime.value = millisUntilFinished/ ONE_SECOND
             }

@@ -26,9 +26,16 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
+
 import com.example.android.guesstheword.R
 import com.example.android.guesstheword.databinding.GameFragmentBinding
+import kotlinx.android.synthetic.main.game_fragment.*
+import kotlinx.android.synthetic.main.title_fragment.view.*
+import kotlin.concurrent.timer
+
 
 /**
  * Fragment where the game is played
@@ -37,10 +44,8 @@ class GameFragment : Fragment() {
 
 
     private lateinit var binding: GameFragmentBinding
-
-
     private lateinit var viewModel: GameViewModel
-
+    private lateinit var viewModelFactory: GameViewModelFactory
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -54,11 +59,17 @@ class GameFragment : Fragment() {
         )
 
         Log.i("GameFragment", "Called ViewModelProvider.get")
+
         viewModel = ViewModelProvider(this).get(GameViewModel::class.java)
+        //viewModelFactory = GameViewModelFactory(GameFragmentArgs.fromBundle(requireArguments()).seconds)
 
         binding.gameViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
+
+        viewModel.seconds.observe(viewLifecycleOwner, Observer { newTime ->
+           binding.timerText.text = newTime.toString()
+        })
         viewModel.eventGameFinish.observe(viewLifecycleOwner, Observer<Boolean> { hasFinished ->
             if (hasFinished) gameFinished()
         })

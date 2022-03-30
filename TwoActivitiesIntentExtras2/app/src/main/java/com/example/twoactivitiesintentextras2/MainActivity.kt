@@ -10,13 +10,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val button1 = findViewById<Button>(R.id.button1)
+        findViewById<Button>(R.id.button1).setOnClickListener{launchActivitySecond (1)}
         val button2 = findViewById<Button>(R.id.button2)
         val button3 = findViewById<Button>(R.id.button3)
 
-        button1.setOnClickListener{
-            launchActivitySecond(1)
-        }
+
 
         button2.setOnClickListener{
             launchActivitySecond(2)
@@ -32,4 +30,6 @@ class MainActivity : AppCompatActivity() {
         intent.putExtra("number", i)
         startActivity(intent)
     }
+
+    
 }

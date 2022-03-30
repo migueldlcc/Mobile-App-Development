@@ -70,5 +70,30 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <com.google.android.material.slider.Slider
+            android:id="@+id/slider_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:value="60"
+            android:valueFrom="5"
+            android:valueTo="360"
+            app:layout_constraintBottom_toTopOf="@+id/play_game_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/switch_button" />
+
+
+        <Switch
+            android:id="@+id/switch_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Timer"
+            android:textOff="Off"
+            android:textOn="On"
+            app:layout_constraintBottom_toTopOf="@+id/slider_1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title_text" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

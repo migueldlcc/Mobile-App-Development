@@ -71,7 +71,7 @@ class TitleFragment: Fragment() {
                 // Switch is enabled and slider is enabled
                 binding.slider1.setEnabled(true)
             } else {
-                // seekbar is disabled
+                // Slider is disabled
                 binding.slider1.setEnabled(false)
 
 

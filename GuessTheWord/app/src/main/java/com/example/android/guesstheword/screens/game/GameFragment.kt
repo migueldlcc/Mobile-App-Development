@@ -60,20 +60,18 @@ class GameFragment : Fragment() {
 
         Log.i("GameFragment", "Called ViewModelProvider.get")
 
-        viewModel = ViewModelProvider(this).get(GameViewModel::class.java)
         viewModelFactory = GameViewModelFactory(GameFragmentArgs.fromBundle(requireArguments()).seconds)
+
+        //Creates ViewModel via the GameViewModelFactory
+        viewModel = ViewModelProvider(this, viewModelFactory).get(GameViewModel::class.java)
 
         binding.gameViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
-
-
-
         viewModel.eventGameFinish.observe(viewLifecycleOwner, Observer<Boolean> { hasFinished ->
             if (hasFinished) gameFinished()
         })
 
         return binding.root
-
     }
 
     private fun gameFinished() {

@@ -19,7 +19,13 @@ class GameViewModel(sliderSeconds: Int) : ViewModel() {
         private const val COUNTDOWN_TIME = 60000L
     }
 
-
+//    private val _seconds = MutableLiveData<Int>()
+//    val seconds: LiveData<Int>
+//        get() = _seconds
+//    init {
+//        Log.i("ScoreViewModel", "Final score is $sliderSeconds")
+//        _seconds.value = sliderSeconds
+//    }
     // Countdown time
     private val _currentTime = MutableLiveData<Long>()
     val currentTime: LiveData<Long>
@@ -30,7 +36,8 @@ class GameViewModel(sliderSeconds: Int) : ViewModel() {
     val currentTimeString = Transformations.map(currentTime) {
         time -> DateUtils.formatElapsedTime(time)
     }
-    private val timer: CountDownTimer
+    private var timer: CountDownTimer?  = null
+
     // The current word
     private val _word = MutableLiveData<String>()
     val word: LiveData<String>
@@ -79,17 +86,19 @@ class GameViewModel(sliderSeconds: Int) : ViewModel() {
     }
 
     init {
-        timer = object : CountDownTimer(sliderSeconds * 1000L, ONE_SECOND) {
-            override fun onTick(millisUntilFinished: Long) {
-                _currentTime.value = millisUntilFinished/ ONE_SECOND
+        if (sliderSeconds > 1) {
+            timer = object : CountDownTimer(sliderSeconds * 1000L, ONE_SECOND) {
+                override fun onTick(millisUntilFinished: Long) {
+                    _currentTime.value = millisUntilFinished/ ONE_SECOND
+                }
+                override fun onFinish() {
+                    _currentTime.value = DONE
+                    onGameFinish()
+                }
             }
-            override fun onFinish() {
-                _currentTime.value = DONE
-                onGameFinish()
-            }
+            timer?.start()
         }
 
-        timer.start()
         resetList()
         nextWord()
         _word.value = ""
@@ -122,7 +131,7 @@ class GameViewModel(sliderSeconds: Int) : ViewModel() {
     override fun onCleared() {
         super.onCleared()
         // Clear the timer
-        timer.cancel()
+        timer?.cancel()
         Log.i("GameViewModel", "GameViewModel destroyed!")
     }
 

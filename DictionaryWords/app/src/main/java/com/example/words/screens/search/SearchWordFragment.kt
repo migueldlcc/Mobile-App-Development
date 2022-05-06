@@ -22,6 +22,8 @@ import com.example.words.network.parseJsonToWord
 import com.example.words.screens.add.AddWordFragmentArgs
 import com.example.words.screens.overview.DictWordsFragmentDirections
 import com.google.android.material.textfield.TextInputLayout
+import com.example.words.databinding.FragmentSearchWordBinding
+import com.example.words.screens.overview.DictWordsListAdapter
 import kotlinx.coroutines.launch
 // The fragment is responsible for handling events. These events include responding to
 // user input and data changes through observation of view model data changes.
@@ -50,9 +52,7 @@ class SearchWordFragment : Fragment() {
         searchButton.setOnClickListener {
             wordSearch()
         }
-        binding.suggestedWord.adapter = SearchWordAdapter(SearchWordAdapter {
-            viewModel.displayPropertyDetails(it)
-        })
+
         // Observe the wordDef so that when a word is found (an exact match of the user input)
         // by the Dictionary API we navigate to the add word screen.
         viewModel.wordDef.observe(this, Observer { word ->
@@ -67,26 +67,29 @@ class SearchWordFragment : Fragment() {
             }
         })
 
+
         val recyclerView = binding.suggestedWordList
         recyclerView.visibility = View.GONE
+
         // Observe the suggestedWords so that when a list of suggested words is
         // returned by the API we can display this on the search word screen.
         viewModel.suggestedWords.observe(this, Observer { suggestedWords ->
             if (null != suggestedWords) {
-                recyclerView.adapter = SearchWordAdapter(
+                val adapter = SearchWordAdapter(
                     suggestedWords,
                     SearchWordAdapter.OnClickListener { searchWord ->
                         viewModel.performWordSearch(searchWord)
                     })
+                recyclerView.setAdapter(adapter)
                 recyclerView.setHasFixedSize(true)
                 recyclerView.visibility = View.VISIBLE
-                val words = layout.findViewById<TextView>(R.id.list)
-                words.text = suggestedWords.toString()
             }
         })
 
         return layout
     }
+
+
 
     private fun wordSearch() {
         // search for the word that the user entered

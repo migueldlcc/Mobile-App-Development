@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -22,7 +23,6 @@ import com.example.words.screens.add.AddWordFragmentArgs
 import com.example.words.screens.overview.DictWordsFragmentDirections
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.launch
-
 // The fragment is responsible for handling events. These events include responding to
 // user input and data changes through observation of view model data changes.
 class SearchWordFragment : Fragment() {
@@ -35,6 +35,8 @@ class SearchWordFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        val binding = FragmentSearchWordBinding.inflate(inflater)
+        binding.lifecycleOwner = this.viewLifecycleOwner
         layout = inflater.inflate(R.layout.fragment_search_word, container, false)
 
         val application = requireNotNull(activity).application
@@ -48,7 +50,9 @@ class SearchWordFragment : Fragment() {
         searchButton.setOnClickListener {
             wordSearch()
         }
-
+        binding.suggestedWord.adapter = SearchWordAdapter(SearchWordAdapter {
+            viewModel.displayPropertyDetails(it)
+        })
         // Observe the wordDef so that when a word is found (an exact match of the user input)
         // by the Dictionary API we navigate to the add word screen.
         viewModel.wordDef.observe(this, Observer { word ->
@@ -63,11 +67,21 @@ class SearchWordFragment : Fragment() {
             }
         })
 
+        val recyclerView = binding.suggestedWordList
+        recyclerView.visibility = View.GONE
         // Observe the suggestedWords so that when a list of suggested words is
         // returned by the API we can display this on the search word screen.
         viewModel.suggestedWords.observe(this, Observer { suggestedWords ->
             if (null != suggestedWords) {
-                TODO("These words should appear on the search word screen")
+                recyclerView.adapter = SearchWordAdapter(
+                    suggestedWords,
+                    SearchWordAdapter.OnClickListener { searchWord ->
+                        viewModel.performWordSearch(searchWord)
+                    })
+                recyclerView.setHasFixedSize(true)
+                recyclerView.visibility = View.VISIBLE
+                val words = layout.findViewById<TextView>(R.id.list)
+                words.text = suggestedWords.toString()
             }
         })
 
@@ -78,7 +92,6 @@ class SearchWordFragment : Fragment() {
         // search for the word that the user entered
         var searchInput: TextInputLayout = layout.findViewById(R.id.search_input)
         var searchWord = searchInput.editText?.text.toString()
-
         // The search is performed by the view model, because the view model
         // is responsible for data access
         viewModel.performWordSearch(searchWord)

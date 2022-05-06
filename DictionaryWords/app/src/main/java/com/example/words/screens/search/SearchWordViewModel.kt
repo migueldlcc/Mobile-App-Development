@@ -53,7 +53,10 @@ class SearchWordViewModel(private val dao: WordDao) : ViewModel() {
     }
 
     fun isWordInDictionary(searchWord: String): Boolean {
-        TODO("Use the dao to check if the word already exists in the datbase")
+        viewModelScope.launch{
+            dao.wordExists(searchWord)
+        }
+        return true
     }
 
     @SuppressLint("NullSafeMutableLiveData")
